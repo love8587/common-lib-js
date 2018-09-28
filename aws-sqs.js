@@ -2,14 +2,16 @@ const AWS = require('aws-sdk')
 const sqs = new AWS.SQS()
 const debug = require('debug')('dcode-serverless:lib:aws-sqs')
 
-function receiveMessages (queueUrl, maxNumberOfMessages = 10) {
+function receiveMessages (queueUrl, maxNumberOfMessages = 10, region = null) {
   return new Promise((resolve, reject) => {
+    if (region) {
+      sqs.config.update({'region': region})
+    }
+
     var params = {
       'QueueUrl': queueUrl,
       'MaxNumberOfMessages': maxNumberOfMessages
     }
-
-    debug('[BEFORE] sqs.receiveMessage')
 
     sqs.receiveMessage(params, function (err, data) {
       if (err) {
@@ -23,7 +25,11 @@ function receiveMessages (queueUrl, maxNumberOfMessages = 10) {
   })
 }
 
-function deleteMessage (queueUrl, ReceiptHandle) {
+function deleteMessage (queueUrl, ReceiptHandle, region = null) {
+  if (region) {
+    sqs.config.update({'region': region})
+  }
+
   var params = {
     'QueueUrl': queueUrl,
     'ReceiptHandle': ReceiptHandle
