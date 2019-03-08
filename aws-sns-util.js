@@ -1,4 +1,4 @@
-const debug = require('debug')('dcode-serverless:lib:event-writer-rdb')
+const debug = require('debug')('summer-serverless:lib:event-writer-rdb')
 const _ = require('lodash')
 
 function extractTopicName (topicArn) {

@@ -6,7 +6,7 @@ function publish (topicName, subject, message) {
     var params = {
       'Message': message,
       'Subject': subject,
-      'TopicArn': `arn:aws:sns:ap-northeast-2:992575464873:${topicName}`
+      'TopicArn': `arn:aws:sns:ap-northeast-2:311335860740:${topicName}`
     }
 
     sns.publish(params, function (err, data) {
